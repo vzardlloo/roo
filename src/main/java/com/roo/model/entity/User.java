@@ -20,12 +20,14 @@ public class User extends ActiveRecord {
     private String  username;
     private String  password;
     private String  email;
+    private String  avatar;
     private Integer topics;
     private Integer comments;
     private Integer followers;
     private String  role;
     private Date    created;
-    private Date    lastLogined;
+    private Date    updated;
+    private Date    logined;
     private Integer state;
 
 }

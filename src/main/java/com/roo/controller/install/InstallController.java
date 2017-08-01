@@ -34,7 +34,7 @@ public class InstallController {
         String  lockPath = CLASSPATH + "install.lock";
         boolean exist    = Files.exists(Paths.get(lockPath));
         if (exist) {
-            request.attribute("message", TplFunctions.lang("roo.install.already-installed"));
+            request.attribute("message", "已经安装过！");
         }
         return "install/index";
     }
