@@ -16,9 +16,9 @@ import jetbrick.template.resolver.GlobalResolver;
  * @author biezhi
  * @date 2017/7/31
  */
-@Order(2)
+@Order(1)
 @Bean
-public class BaseConfig implements BeanProcessor {
+public class TemplateConfig implements BeanProcessor {
 
     @Override
     public void processor(Blade blade) {
