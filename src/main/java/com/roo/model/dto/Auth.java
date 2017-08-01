@@ -1,4 +1,4 @@
-package com.roo.model;
+package com.roo.model.dto;
 
 /**
  * @author biezhi

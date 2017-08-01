@@ -8,7 +8,7 @@ import com.blade.ioc.annotation.Bean;
 import com.blade.ioc.annotation.Order;
 import com.blade.jdbc.Base;
 import com.roo.exception.RooException;
-import com.roo.model.JdbcConfig;
+import com.roo.model.dto.JdbcConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;

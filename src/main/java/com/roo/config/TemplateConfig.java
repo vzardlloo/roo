@@ -6,7 +6,7 @@ import com.blade.ioc.annotation.Bean;
 import com.blade.ioc.annotation.Order;
 import com.blade.mvc.view.template.JetbrickTemplateEngine;
 import com.roo.ext.TplFunctions;
-import com.roo.model.Auth;
+import com.roo.model.dto.Auth;
 import jetbrick.template.JetGlobalContext;
 import jetbrick.template.resolver.GlobalResolver;
 
