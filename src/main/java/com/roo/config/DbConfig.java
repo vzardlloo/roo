@@ -9,10 +9,12 @@ import com.blade.ioc.annotation.Order;
 import com.blade.jdbc.Base;
 import com.roo.exception.RooException;
 import com.roo.model.dto.JdbcConfig;
+import com.roo.model.entity.Setting;
 import lombok.extern.slf4j.Slf4j;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,6 +49,10 @@ public class DbConfig implements BeanProcessor {
 
             loadDatasource(jdbcConfig);
             log.info("⬢ Load database config success!");
+
+            List<Setting> settings = new Setting().findAll();
+            RooConst.refreshSysInfo(settings);
+
         }
     }
 

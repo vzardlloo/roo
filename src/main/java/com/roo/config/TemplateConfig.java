@@ -7,7 +7,6 @@ import com.blade.ioc.annotation.Order;
 import com.blade.mvc.view.template.JetbrickTemplateEngine;
 import com.roo.ext.TplFunctions;
 import com.roo.model.dto.Auth;
-import jetbrick.template.JetGlobalContext;
 import jetbrick.template.resolver.GlobalResolver;
 
 /**
@@ -27,8 +26,8 @@ public class TemplateConfig implements BeanProcessor {
         resolver.registerFunctions(TplFunctions.class);
         resolver.registerMethods(Auth.class);
 
-        JetGlobalContext context = templateEngine.getGlobalContext();
-        context.set("version", blade.environment().get("app.version", "v0.0.1"));
+        RooConst.context = templateEngine.getGlobalContext();
+        RooConst.context.set("version", blade.environment().get("app.version", "v0.0.1"));
 
         blade.templateEngine(templateEngine);
     }

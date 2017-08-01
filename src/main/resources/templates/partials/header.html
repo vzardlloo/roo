@@ -2,7 +2,7 @@
 <div class="header">
     <nav class="navbar container">
         <div class="navbar-brand">
-            <a class="navbar-item" href="http://bulma.io">
+            <a class="navbar-item" href="${siteUrl()}">
                 <img src="/static/images/logo.png" alt="Roo 简洁的"
                      width="112" height="28">
             </a>
@@ -28,23 +28,23 @@
 
         <div id="navMenuExample" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item " href="http://bulma.io/expo/">
+                <a class="navbar-item " href="${siteUrl('topics')}">
                     <span class="emoji">🦌&nbsp;</span>
                     社区
                 </a>
-                <a class="navbar-item " href="http://bulma.io/expo/">
+                <a class="navbar-item " href="${siteUrl('news')}">
                     <span class="emoji">🤛&nbsp;</span>
                     头条
                 </a>
-                <a class="navbar-item " href="http://bulma.io/expo/">
+                <a class="navbar-item " href="${siteUrl('jobs')}">
                     <span class="emoji">💁&nbsp;</span>
                     招聘
                 </a>
-                <a class="navbar-item " href="http://bulma.io/expo/">
+                <a class="navbar-item " href="${siteUrl('wiki')}">
                     <span class="emoji">🎨&nbsp;</span>
                     Wiki
                 </a>
-                <a class="navbar-item " href="http://bulma.io/love/">
+                <a class="navbar-item " href="${siteUrl('sites')}">
                     <span class="emoji">❤️&nbsp;</span>
                     酷站
                 </a>
@@ -52,18 +52,20 @@
 
             <div class="navbar-end">
                 <div class="navbar-item search-bar">
-                    <div class="control has-icons-left">
-                        <input class="input" placeholder="搜索本站内容">
-                        <span class="icon is-small is-left">
-                        <i class="fa fa-search"></i>
-                      </span>
-                    </div>
+                    <form id="search-form">
+                        <div class="control has-icons-left">
+                            <input class="input" placeholder="搜索本站内容">
+                            <span class="icon is-small is-left">
+                                <i class="fa fa-search"></i>
+                            </span>
+                        </div>
+                    </form>
                 </div>
 
-                <a class="navbar-item is-hidden-desktop-only" href="https://github.com/jgthms/bulma" target="_blank">
+                <a class="navbar-item is-hidden-desktop-only" href="${siteUrl('signup')}">
                     注册
                 </a>
-                <a class="navbar-item is-hidden-desktop-only" href="https://github.com/jgthms/bulma" target="_blank">
+                <a class="navbar-item is-hidden-desktop-only" href="${siteUrl('signin')}">
                     登录
                 </a>
             </div>
