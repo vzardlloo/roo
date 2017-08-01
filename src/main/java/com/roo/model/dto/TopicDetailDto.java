@@ -1,0 +1,26 @@
+package com.roo.model.dto;
+
+import com.blade.jdbc.annotation.Transient;
+import lombok.Data;
+import lombok.ToString;
+
+import java.util.List;
+
+/**
+ * 帖子详情
+ *
+ * @author biezhi
+ * @date 2017/8/2
+ */
+@Data
+@ToString(callSuper = true)
+public class TopicDetailDto extends TopicDto {
+
+    private Boolean popular;
+    private String  content;
+    private Integer likes;
+
+    @Transient
+    private List<CommentDto> commentList;
+
+}

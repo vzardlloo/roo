@@ -1,0 +1,194 @@
+
+#tag layout_block("bodyContent")
+
+<article class="message is-white">
+    <div class="message-body shadow-1 boom">
+        <div class="media">
+            <div class="media-left">
+                <i class="fa fa-gift media-object" style="font-size: 55px; width: 55px; color: #333;"></i>
+            </div>
+            <div class="media-body" style="line-height: 200%; text-align: center;">
+                <div style="font-size: 15px">
+                    Roo 官方网站源码 <a href="https://github.com/biezhi/roo" target="_blank">Roo</a> 正式上线！
+                </div>
+                <div>
+                    <code style="padding: 4px 10px; background: #e9eaed; border-radius: 2px;">git clone
+                        git@github.com:biezhi/roo.git</code>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+<div class="columns node-icon">
+    <div class="column">
+        <div class="notification shadow-1 is-info has-text-centered">
+            <div class="item-icon">
+                <a href="${siteUrl('topics')}"><i class="fa fa-comments-o"></i></a>
+            </div>
+            <div>
+                <a href="${siteUrl('topics')}">Roo社区</a>
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="notification shadow-1 is-success has-text-centered">
+            <div class="item-icon">
+                <a href="/topics"><i class="fa fa-support"></i></a>
+            </div>
+            <div>
+                <a href="">技术文档</a>
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="notification shadow-1 is-warning has-text-centered">
+            <div class="item-icon">
+                <a href="${siteUrl('jobs')}"><i class="fa fa-users"></i></a>
+            </div>
+            <div>
+                <a href="${siteUrl('jobs')}">求职招聘</a>
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="notification shadow-1 is-danger has-text-centered">
+            <div class="item-icon">
+                <a href="${siteUrl('popular')}"><i class="fa fa-diamond"></i></a>
+            </div>
+            <div>
+                <a href="${siteUrl('popular')}">精华主题</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="columns">
+    <div class="column home-topic">
+        <div class="message is-light">
+            <div class="message-header">
+                <span class="has-text-left">首页主题</span>
+                <span class="has-text-right">
+                        <a href="">最新话题</a>
+                        <a href="">精华主题</a>
+                        <a href="">点赞最多</a>
+                        <a href="">等待回复</a>
+                    </span>
+            </div>
+            <div class="message-body has-text-centered">
+                #for(topic : topics)
+                <article class="media">
+                    <figure class="media-left">
+                        <p class="image is-48x48">
+                            <a href="${siteUrl('u/' + topic.username)}">
+                                <img class="avatar-48" src="${topic.avatar}">
+                            </a>
+                        </p>
+                    </figure>
+                    <div class="media-content">
+                        <div class="content">
+                            <p class="topic-title">
+                                <a href="${siteUrl('topic/' + topic.tid)}">${topic.title}</a>
+                            </p>
+                            <p class="topic-meta">
+                                <a class="topic-meta" href="${siteUrl('node/' + topic.nodeSlug)}">${topic.nodeTitle}</a>
+                                <span> • </span>
+                                <a class="topic-meta" href="${siteUrl('u/' + topic.username)}">${topic.username}</a>
+                                <span> • </span>
+                                <small>发布于12分钟前</small>
+                                <span> • </span>
+                                #if(topic.comments > 0)
+                                <small>最后回复来自</small>
+                                <a class="topic-meta" href="${siteUrl('u/' + topic.replyUser)}">${topic.replyUser}</a>
+                                #else
+                                <small>暂无回复</small>
+                                #end
+                            </p>
+                        </div>
+                    </div>
+                    <div class="media-right" style="line-height: 55px;">
+                        <a href="${siteUrl('topic/' + topic.tid + '#reply-' + topic.replyId)}">
+                            <span class="tag is-rounded" style="background-color: #aab0c6">${topic.comments}</span>
+                        </a>
+                    </div>
+                </article>
+                #end
+            </div>
+            <div class="message-header">
+                <a class="button is-small is-dark">更多主题...</a>
+            </div>
+        </div>
+    </div>
+
+    #include('partials/sidebar.html')
+</div>
+
+
+<!--节点导航-->
+<div class="message is-light">
+    <div class="message-header">
+        节点导航
+    </div>
+    <div class="message-body has-text-centered">
+        <div class="row node-list">
+            <div class="node media">
+                <label class="media-left">Hifone</label>
+                <span class="nodes media-body">
+                            <span class="name"><a title="站务与公告" href="http://hifone.com/go/announcement">站务与公告</a></span>
+                            <span class="name"><a title="反馈" href="http://hifone.com/go/feedback">反馈</a></span>
+                            <span class="name"><a title="使用指南" href="http://hifone.com/go/guide">使用指南</a></span>
+                      </span>
+            </div>
+            <div class="node media">
+                <label class="media-left">Mobile</label>
+                <span class="nodes media-body">
+                            <span class="name"><a title="iPhone" href="http://hifone.com/go/iphone">iPhone</a></span>
+                            <span class="name"><a title="Android" href="http://hifone.com/go/android">Android</a></span>
+                      </span>
+            </div>
+            <div class="node media">
+                <label class="media-left">Lifestyle</label>
+                <span class="nodes media-body">
+                            <span class="name"><a title="Discovery" href="http://hifone.com/go/discovery">Discovery</a></span>
+                            <span class="name"><a title="意欲蔓延" href="http://hifone.com/go/appetency">意欲蔓延</a></span>
+                      </span>
+            </div>
+            <div class="node media">
+                <label class="media-left">Technology</label>
+                <span class="nodes media-body">
+                            <span class="name"><a title="Geek Talks" href="http://hifone.com/go/geek">Geek Talks</a></span>
+                            <span class="name"><a title="程序猿" href="http://hifone.com/go/codefarmer">程序猿</a></span>
+                            <span class="name"><a title="分享与创造" href="http://hifone.com/go/share">分享与创造</a></span>
+                      </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--热门城市-->
+<div class="message is-light">
+    <div class="message-header">
+        热门城市
+    </div>
+    <div class="message-body has-text-centered">
+        <span class="tag">上海</span>
+        <span class="tag">北京</span>
+        <span class="tag">广州</span>
+        <span class="tag">深圳</span>
+        <span class="tag">杭州</span>
+        <span class="tag">重庆</span>
+        <span class="tag">成都</span>
+        <span class="tag">江西</span>
+        <span class="tag">西安</span>
+        <span class="tag">河北</span>
+        <span class="tag">湖南</span>
+        <span class="tag">武汉</span>
+        <span class="tag">南京</span>
+        <span class="tag">大连</span>
+    </div>
+</div>
+
+#end
+
+
+#include('layouts/default.html')

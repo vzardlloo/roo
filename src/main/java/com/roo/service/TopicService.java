@@ -1,9 +1,14 @@
 package com.roo.service;
 
 import com.blade.ioc.annotation.Bean;
+import com.blade.ioc.annotation.Inject;
 import com.blade.jdbc.page.Page;
+import com.roo.model.dto.CommentDto;
+import com.roo.model.dto.TopicDetailDto;
 import com.roo.model.dto.TopicDto;
 import com.roo.model.param.SearchParam;
+
+import java.util.List;
 
 /**
  * @author biezhi
@@ -11,6 +16,9 @@ import com.roo.model.param.SearchParam;
  */
 @Bean
 public class TopicService {
+
+    @Inject
+    private CommentService commentService;
 
     public Page<TopicDto> getTopics(SearchParam searchParam) {
 
@@ -23,6 +31,24 @@ public class TopicService {
 
         Page<TopicDto> topics = new TopicDto().page(searchParam.getPageRow(), sql);
         return topics;
+    }
+
+    public TopicDetailDto getTopicDetail(String tid) {
+
+        String sql = "select a.tid, a.title, a.username, b.avatar," +
+                "a.node_slug as nodeSlug, a.node_title as nodeTitle," +
+                "a.likes, a.comments, a.created, b.avatar" +
+                " from roo_topic a" +
+                " left join roo_user b on a.username = b.username" +
+                " where a.tid = ?";
+
+        TopicDetailDto topicDetail = new TopicDetailDto().query(sql, tid);
+        if (topicDetail.getComments() > 0) {
+            // 加载评论
+            List<CommentDto> commentDtos = commentService.getComments(tid);
+            topicDetail.setCommentList(commentDtos);
+        }
+        return topicDetail;
     }
 
 }
