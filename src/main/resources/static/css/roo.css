@@ -1,0 +1,144 @@
+@media (min-width: 768px) {
+    .container {
+        width: 750px
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        width: 970px
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 1170px;
+    }
+}
+
+.container-fluid {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px
+}
+
+.container-fluid:after, .container-fluid:before {
+    content: " ";
+    display: table
+}
+
+.container-fluid:after {
+    clear: both
+}
+
+body {
+    background: #e9eaed;
+    color: #222527;
+    font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+    font-size: 14px;
+    letter-spacing: .03em;
+}
+
+a {
+    text-decoration: none;
+    color: #222527;
+    font-size: 14px;
+}
+
+p {
+    color: #9CA4A9;
+}
+
+.message-body a:not(.button) {
+    text-decoration: none;
+}
+
+.header {
+    background-color: #FFF;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    margin-bottom: 15px;
+    border: 0px;
+    color: #A1C3EE;
+    z-index: 1030;
+}
+
+.search-bar input{
+    border: none;
+    box-shadow: none;
+}
+
+.boom {
+    width: 480px;
+    margin: 0px auto;
+    text-align: left;
+}
+
+.shadow-1 {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.node-icon i {
+    font-size: 60px;
+}
+
+.node-icon .item-icon {
+    padding-bottom: 8px;
+}
+
+.node-icon a:not(.button) {
+    text-decoration: none;
+}
+
+.home-topic a:not(.button) {
+    text-decoration: none;
+}
+
+.home-topic .message {
+    font-size: inherit;
+}
+
+.node-list .node label {
+    font-weight: 400;
+    color: #aaa;
+    text-align: right;
+}
+
+.node-list .media-left{
+    min-width: 100px;
+}
+
+.media-body, .media-left, .media-right {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.node-list .node .name {
+    margin-bottom: 10px;
+    padding: 0 5px;
+    display: block;
+    float: left;
+    text-align: left;
+}
+
+.avatar-48 {
+    width: 48px;
+    height: 48px;
+    border-radius: 120px;
+}
+
+.home-topic .topic-title {
+    color: #222;
+    font-weight: 500;
+    line-height: 25px;
+}
+
+.home-topic .message-body a:not(.button) .topic-meta {
+    font-size: 14px;
+    color: #555;
+}
+
+.footer {
+    background: none;
+    padding: 3rem 1.5rem 1rem;
+}
