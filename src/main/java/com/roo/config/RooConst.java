@@ -26,4 +26,10 @@ public class RooConst {
         context.set("settings", map);
     }
 
+    public static final String MAPDB_NAME           = "roo.db";
+    public static final String DBKEY_FOLLOW         = "follow";
+    public static final String DBKEY_FOLLOWING      = "following";
+    public static final String DBKEY_USER_FAVORITES = "user:favorites";
+    public static final String DBKEY_TOPIC_LIKES    = "topic:likes";
+
 }
