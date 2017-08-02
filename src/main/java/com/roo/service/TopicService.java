@@ -41,7 +41,7 @@ public class TopicService {
 
         String sql = "select a.tid, a.title, a.content, a.username, b.avatar," +
                 "a.node_slug as nodeSlug, a.node_title as nodeTitle," +
-                "a.likes, a.comments, a.created, b.avatar" +
+                "a.comments, a.created, b.avatar" +
                 " from roo_topic a" +
                 " left join roo_user b on a.username = b.username" +
                 " where a.tid = ?";

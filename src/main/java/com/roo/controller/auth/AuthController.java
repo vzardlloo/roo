@@ -1,5 +1,6 @@
 package com.roo.controller.auth;
 
+import com.blade.mvc.annotation.GetRoute;
 import com.blade.mvc.annotation.Path;
 
 /**
@@ -8,11 +9,17 @@ import com.blade.mvc.annotation.Path;
  * @author biezhi
  * @date 2017/7/31
  */
-@Path("auth")
+@Path
 public class AuthController {
 
-    public String login(){
-        return "login";
+    @GetRoute("signin")
+    public String signin(){
+        return "auth/signin";
+    }
+
+    @GetRoute("signup")
+    public String signup(){
+        return "auth/signup";
     }
 
 }

@@ -3,6 +3,7 @@ package com.roo.service;
 import com.blade.ioc.annotation.Bean;
 import com.roo.config.RooConst;
 import com.roo.utils.ArrayUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.mapdb.DB;
 import org.mapdb.DBMaker;
 import org.mapdb.Serializer;
@@ -21,9 +22,17 @@ import java.util.stream.Collectors;
  * @date 2017/8/2
  */
 @Bean
+@Slf4j
 public class RelationService {
 
     private DB db = DBMaker.fileDB(RooConst.MAPDB_NAME).fileMmapEnable().make();
+
+    public RelationService() {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            db.close();
+            log.info("closed mapdb");
+        }));
+    }
 
     /**
      * 获取一个用户的所有粉丝id列表

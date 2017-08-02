@@ -7,8 +7,8 @@
             <div class="message-header">
                 <div class="has-text-left">
                     <div style="padding-bottom: 10px;">
-                        <a href="">分享创造</a> /
-                        <span style="color: #222527;">重构 用 Rails 写 API 服务，性能感觉不足，怎么办？</span>
+                        <a href="${siteUrl('/go/' + topic.nodeSlug)}">${topic.nodeTitle}</a> /
+                        <span style="color: #222527;">${topic.title}</span>
                     </div>
                     <div class="topic-head-meta">
                         <a href="${siteUrl('u/' + topic.username)}"><b>${topic.username}</b></a> · 发布于 <abbr>8 天前</abbr> ·
@@ -39,6 +39,7 @@
             </div>
         </div>
 
+        #if(topic.comments > 0)
         <div class="message is-light">
             <div class="message-header">
                 <div class="has-text-left">
@@ -57,7 +58,6 @@
                             </a>
                         </p>
                     </figure>
-
                     <div class="media-content">
                         <div class="topic-head-meta">
                             <a href="${siteUrl('u/' + comment.author)}"><b>${comment.author}</b></a> ·
@@ -66,23 +66,32 @@
                         <div style="margin-top: 10px;">
                             ${comment.content}
                         </div>
-                        <!--<div class="content">-->
-                            <!--${comment.content}-->
-                        <!--</div>-->
                     </div>
                     <div class="media-right" style="line-height: 55px;">
-
+                        <!-- TODO: 回复该评论 -->
                     </div>
                 </article>
                 #end
             </div>
-
         </div>
-    </div>
+        #end
 
+        #if(null != login_user)
+        <div class="message is-light">
+            <!--TODO: 评论-->
+        </div>
+        #else
+        <div class="message is-light">
+            <div class="message-header">发表评论</div>
+            <div class="message-body has-text-centered" style="line-height: 30px;">
+                需要 <a class="button is-success is-small" href="${siteUrl('signin')}">登录</a> 后方可回复,
+                如果你还没有账号请点击这里 <a class="button is-danger is-small" href="${siteUrl('signup')}">注册</a>
+            </div>
+        </div>
+        #end
+    </div>
     #include('../partials/sidebar.html')
 </div>
-
 #end
 
 #include('../layouts/default.html')
