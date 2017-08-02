@@ -8,6 +8,12 @@
     <artifactId>roo</artifactId>
     <version>0.0.1</version>
 
+    <properties>
+        <commonmark.version>0.9.0</commonmark.version>
+        <rome.version>1.0</rome.version>
+        <emoji.version>3.2.0</emoji.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.bladejava</groupId>
@@ -43,6 +49,31 @@
             <groupId>org.mapdb</groupId>
             <artifactId>mapdb</artifactId>
             <version>3.0.5</version>
+        </dependency>
+        <!--markdown处理-->
+        <dependency>
+            <groupId>com.atlassian.commonmark</groupId>
+            <artifactId>commonmark</artifactId>
+            <version>${commonmark.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.commonmark</groupId>
+            <artifactId>commonmark-ext-gfm-tables</artifactId>
+            <version>${commonmark.version}</version>
+        </dependency>
+
+        <!--RSS输出-->
+        <dependency>
+            <groupId>rome</groupId>
+            <artifactId>rome</artifactId>
+            <version>${rome.version}</version>
+        </dependency>
+
+        <!--过滤 emoji 字符-->
+        <dependency>
+            <groupId>com.vdurmont</groupId>
+            <artifactId>emoji-java</artifactId>
+            <version>${emoji.version}</version>
         </dependency>
     </dependencies>
 

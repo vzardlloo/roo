@@ -123,7 +123,6 @@ public class RelationService {
      * @param fansId 我的uid
      */
     public void unfollow(Long uid, Long fansId) {
-
         // uid的粉丝-1
         Map<Long, long[]> map = db.treeMap("follow")
                 .keySerializer(Serializer.LONG)
@@ -151,6 +150,24 @@ public class RelationService {
     }
 
     /**
+     * 获取帖子收藏数
+     *
+     * @param tid
+     * @return
+     */
+    public int getTopicFavorites(String tid) {
+        Map<String, Long> topicFavoriesMap = db.hashMap(RooConst.DBKEY_TOPIC_FAVORITES)
+                .keySerializer(Serializer.STRING)
+                .valueSerializer(Serializer.LONG)
+                .createOrOpen();
+
+        if (topicFavoriesMap.containsKey(tid)) {
+            return topicFavoriesMap.get(tid).intValue();
+        }
+        return 0;
+    }
+
+    /**
      * 收藏一个帖子
      *
      * @param uid
@@ -167,6 +184,18 @@ public class RelationService {
         } else {
             map.put(uid, new long[]{Long.parseLong(tid, 36)});
         }
+
+        Map<String, Long> topicFavoriesMap = db.hashMap(RooConst.DBKEY_TOPIC_FAVORITES)
+                .keySerializer(Serializer.STRING)
+                .valueSerializer(Serializer.LONG)
+                .createOrOpen();
+
+        if (topicFavoriesMap.containsKey(tid)) {
+            topicFavoriesMap.put(tid, topicFavoriesMap.get(tid) + 1);
+        } else {
+            topicFavoriesMap.put(tid, 1L);
+        }
+
     }
 
     /**
@@ -182,10 +211,56 @@ public class RelationService {
                 .counterEnable()
                 .createOrOpen();
         map.put(uid, ArrayUtils.remove(map.get(uid), Long.parseLong(tid, 36)));
+
+        Map<String, Long> topicFavoriesMap = db.hashMap(RooConst.DBKEY_TOPIC_FAVORITES)
+                .keySerializer(Serializer.STRING)
+                .valueSerializer(Serializer.LONG)
+                .createOrOpen();
+
+        if (topicFavoriesMap.containsKey(tid)) {
+            topicFavoriesMap.put(tid, topicFavoriesMap.get(tid) - 1);
+        }
+
     }
 
     /**
-     * 喜欢一个帖子
+     * 帖子浏览数+1
+     *
+     * @param tid
+     */
+    public Long viewTopic(String tid) {
+        Map<String, Long> map = db.treeMap(RooConst.DBKEY_TOPIC_VIEWS)
+                .keySerializer(Serializer.STRING)
+                .valueSerializer(Serializer.LONG)
+                .createOrOpen();
+        if (map.containsKey(tid)) {
+            map.put(tid, map.get(tid) + 1);
+        } else {
+            map.put(tid, 1L);
+        }
+        return map.get(tid);
+    }
+
+    /**
+     * 获取帖子点赞数
+     *
+     * @param tid
+     * @return
+     */
+    public int getTopicLikes(String tid) {
+        Map<String, long[]> map = db.treeMap(RooConst.DBKEY_TOPIC_LIKES)
+                .keySerializer(Serializer.STRING)
+                .valueSerializer(Serializer.LONG_ARRAY)
+                .counterEnable()
+                .createOrOpen();
+        if (map.containsKey(tid)) {
+            return map.get(tid).length;
+        }
+        return 0;
+    }
+
+    /**
+     * 给帖子点赞
      *
      * @param uid
      * @param tid
@@ -204,7 +279,7 @@ public class RelationService {
     }
 
     /**
-     * 取消喜欢帖子
+     * 取消帖子点赞
      *
      * @param uid
      * @param tid

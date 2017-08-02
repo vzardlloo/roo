@@ -46,8 +46,8 @@ a {
     font-size: 14px;
 }
 
-p {
-    color: #9CA4A9;
+.message-header a:not(.button) {
+    text-decoration: none;
 }
 
 .message-body a:not(.button) {
@@ -63,7 +63,7 @@ p {
     z-index: 1030;
 }
 
-.search-bar input{
+.search-bar input {
     border: none;
     box-shadow: none;
 }
@@ -72,6 +72,21 @@ p {
     width: 480px;
     margin: 0px auto;
     text-align: left;
+}
+
+.message {
+    font-size: inherit;
+}
+
+.clearfix:after {
+    content: " ";
+    display: block;
+    clear: both;
+    height: 0;
+}
+
+.clearfix {
+    zoom: 1;
 }
 
 .shadow-1 {
@@ -104,7 +119,7 @@ p {
     text-align: right;
 }
 
-.node-list .media-left{
+.node-list .media-left {
     min-width: 100px;
 }
 
@@ -136,6 +151,42 @@ p {
 .home-topic .message-body a:not(.button) .topic-meta {
     font-size: 14px;
     color: #555;
+}
+
+.likes {
+    display: inline-block;
+    margin-right: 8px;
+}
+
+abbr[title], acronym[title] {
+    text-decoration: underline dotted;
+}
+
+abbr[title] {
+    border-bottom: 0px;
+    cursor: pointer;
+}
+
+.topic-head-meta, .topic-head-meta a{
+    color: #9CA4A9;
+    font-size: 12px;
+}
+
+.topic-content {
+    color: #222527;
+    padding: 1em 1.25em;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-color: #f5f5f5;
+
+}
+
+.topic-footer a {
+    color: #9CA4A9;
+}
+
+.topic-footer i {
+    font-size: 15px;
 }
 
 .footer {

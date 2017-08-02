@@ -2,6 +2,7 @@ package com.roo.service;
 
 import com.blade.ioc.annotation.Bean;
 import com.roo.model.dto.CommentDto;
+import com.roo.utils.RooUtils;
 
 import java.util.List;
 
@@ -18,7 +19,9 @@ public class CommentService {
                 " left join roo_user b on a.author = b.username" +
                 " where a.tid = ?";
 
-        return new CommentDto().queryAll(sql, tid);
+        List<CommentDto> list = new CommentDto().queryAll(sql, tid);
+        list.forEach(dto -> dto.setContent(RooUtils.mdToHtml(dto.getContent())));
+        return list;
     }
 
 }

@@ -7,6 +7,7 @@ import com.roo.model.dto.CommentDto;
 import com.roo.model.dto.TopicDetailDto;
 import com.roo.model.dto.TopicDto;
 import com.roo.model.param.SearchParam;
+import com.roo.utils.RooUtils;
 
 import java.util.List;
 
@@ -19,6 +20,9 @@ public class TopicService {
 
     @Inject
     private CommentService commentService;
+
+    @Inject
+    private RelationService relationService;
 
     public Page<TopicDto> getTopics(SearchParam searchParam) {
 
@@ -35,7 +39,7 @@ public class TopicService {
 
     public TopicDetailDto getTopicDetail(String tid) {
 
-        String sql = "select a.tid, a.title, a.username, b.avatar," +
+        String sql = "select a.tid, a.title, a.content, a.username, b.avatar," +
                 "a.node_slug as nodeSlug, a.node_title as nodeTitle," +
                 "a.likes, a.comments, a.created, b.avatar" +
                 " from roo_topic a" +
@@ -48,6 +52,11 @@ public class TopicService {
             List<CommentDto> commentDtos = commentService.getComments(tid);
             topicDetail.setCommentList(commentDtos);
         }
+        topicDetail.setContent(RooUtils.mdToHtml(topicDetail.getContent()));
+        topicDetail.setViews(relationService.viewTopic(tid).intValue());
+        topicDetail.setLikes(relationService.getTopicLikes(tid));
+        topicDetail.setFavorites(relationService.getTopicFavorites(tid));
+
         return topicDetail;
     }
 

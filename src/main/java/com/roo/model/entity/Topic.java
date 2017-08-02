@@ -22,9 +22,7 @@ public class Topic extends ActiveRecord {
     private String  title;
     private String  content;
     private String  username;
-    private Integer views;
     private Integer comments;
-    private Integer likes;
     private Boolean popular;
     private String  replyUser;
     private Date    created;
