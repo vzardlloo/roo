@@ -14,5 +14,6 @@ import lombok.*;
 public class SearchParam extends PageParam {
 
     private String q;
+    private String slug;
 
 }

@@ -15,7 +15,10 @@ import lombok.Data;
 public class Node extends ActiveRecord {
 
     private Integer id;
+    private Integer pid;
     private String  slug;
     private String  title;
     private String  description;
+    private Integer topics;
+    private Integer state;
 }

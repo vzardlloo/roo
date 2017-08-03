@@ -18,9 +18,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hello Roo!</title>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bulma/0.5.0/css/bulma.min.css">
-    <link rel="stylesheet" href="/static/css/roo.css"/>
+    <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/webjars/bulma/0.5.0/css/bulma.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/static/css/roo.css?v=${version}"/>
 </head>
 <body>
 #include('../partials/header.html')
@@ -28,5 +28,16 @@
     ${bodyContent}
     #include('../partials/footer.html')
 </div>
+<script type="text/javascript" src="/webjars/jquery/2.2.4/dist/jquery.min.js"></script>
+<script src="/static/js/instantclick.min.js"></script>
+<script data-no-instant>
+    InstantClick.on('change', function (isInitialLoad) {
+        if (isInitialLoad === false) {
+            if (typeof ga !== 'undefined') ga('send', 'pageview', location.pathname + location.search);
+        }
+    });
+    InstantClick.init('mousedown');
+</script>
+${footScript}
 </body>
 </html>

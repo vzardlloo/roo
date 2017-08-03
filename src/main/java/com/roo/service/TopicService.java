@@ -3,12 +3,14 @@ package com.roo.service;
 import com.blade.ioc.annotation.Bean;
 import com.blade.ioc.annotation.Inject;
 import com.blade.jdbc.page.Page;
+import com.blade.kit.StringKit;
 import com.roo.model.dto.CommentDto;
 import com.roo.model.dto.TopicDetailDto;
 import com.roo.model.dto.TopicDto;
 import com.roo.model.param.SearchParam;
 import com.roo.utils.RooUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,14 +28,26 @@ public class TopicService {
 
     public Page<TopicDto> getTopics(SearchParam searchParam) {
 
+        List<Object> args  = new ArrayList<>();
+        String       where = " where 1=1 ";
+        if (StringKit.isNotBlank(searchParam.getQ())) {
+            where += "and a.title like ? ";
+            args.add("%" + searchParam.getQ() + "%");
+        }
+
+        if (StringKit.isNotBlank(searchParam.getSlug())) {
+            where += "and a.node_slug = ? ";
+            args.add(searchParam.getSlug());
+        }
+
         String sql = "select a.tid, a.title, a.username, b.avatar," +
                 "a.node_slug as nodeSlug, a.node_title as nodeTitle," +
                 "a.comments, a.created, a.replyed, a.reply_id as replyId, a.reply_user as replyUser" +
                 " from roo_topic a" +
-                " left join roo_user b on a.username = b.username" +
+                " left join roo_user b on a.username = b.username" + where +
                 " order by a.created desc";
 
-        Page<TopicDto> topics = new TopicDto().page(searchParam.getPageRow(), sql);
+        Page<TopicDto> topics = new TopicDto().page(searchParam.getPageRow(), sql, args.toArray());
         return topics;
     }
 

@@ -20,8 +20,9 @@ public class IndexController {
     private TopicService topicService;
 
     @GetRoute
-    public String index(Request request) {
-        Page<TopicDto> topicDtoPage = topicService.getTopics(SearchParam.builder().build());
+    public String index(SearchParam searchParam, Request request) {
+        searchParam = null == searchParam ? new SearchParam() : searchParam;
+        Page<TopicDto> topicDtoPage = topicService.getTopics(searchParam);
         request.attribute("topics", topicDtoPage.getRows());
         return "index";
     }

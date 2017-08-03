@@ -27,7 +27,8 @@ public class TemplateConfig implements BeanProcessor {
         resolver.registerMethods(Auth.class);
 
         RooConst.context = templateEngine.getGlobalContext();
-        RooConst.context.set("version", blade.environment().get("app.version", "v0.0.1"));
+        System.out.println(blade.environment().get("app.version", "0.0.1"));
+        RooConst.context.set(String.class, "version", blade.environment().get("app.version", "0.0.1"));
 
         blade.templateEngine(templateEngine);
     }
