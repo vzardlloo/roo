@@ -1,4 +1,4 @@
-import com.roo.utils.Hashids;
+import com.roo.utils.RooUtils;
 
 /**
  * @author biezhi
@@ -6,8 +6,8 @@ import com.roo.utils.Hashids;
  */
 public class IdTest {
     public static void main(String[] args) {
-        Hashids hashids = new Hashids("blade-roo");
-        String id = hashids.encode(1002, System.currentTimeMillis());
-        System.out.println(id.toLowerCase());
+        String tid = RooUtils.genTid();
+        System.out.println(tid);
+        System.out.println(RooUtils.decodeId(tid));
     }
 }

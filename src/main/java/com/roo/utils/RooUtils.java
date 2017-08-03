@@ -1,5 +1,6 @@
 package com.roo.utils;
 
+import com.blade.kit.Hashids;
 import com.blade.kit.StringKit;
 import com.vdurmont.emoji.EmojiParser;
 import org.commonmark.Extension;
@@ -19,6 +20,18 @@ import java.util.List;
  */
 public class RooUtils {
 
+    private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz1234567890";
+
+    private static final Hashids hashids = new Hashids("blade-roo", 12, ALPHABET);
+
+    public static String genTid() {
+        return hashids.encode(1002, System.currentTimeMillis());
+    }
+
+    public static Long decodeId(String hash) {
+        return hashids.decode(hash)[1];
+    }
+
     /**
      * markdown转换为html
      *
@@ -29,7 +42,7 @@ public class RooUtils {
         if (StringKit.isBlank(markdown)) {
             return "";
         }
-        
+
         List<Extension> extensions = Arrays.asList(TablesExtension.create());
         Parser          parser     = Parser.builder().extensions(extensions).build();
         Node            document   = parser.parse(markdown);

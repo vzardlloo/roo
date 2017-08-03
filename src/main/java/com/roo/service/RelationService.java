@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class RelationService {
 
-    private DB db = DBMaker.fileDB(RooConst.MAPDB_NAME).fileMmapEnable().make();
+    private DB db = DBMaker.fileDB(RooConst.RELATE_DBNAME).fileMmapEnable().make();
 
     public RelationService() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
