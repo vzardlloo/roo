@@ -30,7 +30,7 @@ public class DbConfig implements BeanProcessor {
 
     @Override
     public void processor(Blade blade) {
-        Environment         environment = Environment.of("classpath:jdbc.properties");
+        Environment         environment = blade.environment();
         Map<String, String> map         = environment.toMap();
         if (map.containsKey("jdbc.database")) {
             JdbcConfig jdbcConfig = JdbcConfig.builder()

@@ -9,7 +9,7 @@
     <version>0.0.1</version>
 
     <properties>
-        <blade-mvc.version>2.0.1-alpha3</blade-mvc.version>
+        <blade-mvc.version>2.0.1-beta1</blade-mvc.version>
         <commonmark.version>0.9.0</commonmark.version>
         <rome.version>1.0</rome.version>
         <emoji.version>3.2.0</emoji.version>
@@ -24,7 +24,7 @@
         <dependency>
             <groupId>com.bladejava</groupId>
             <artifactId>blade-template-jetbrick</artifactId>
-            <version>0.1.0</version>
+            <version>0.1.1</version>
         </dependency>
         <dependency>
             <groupId>com.bladejava</groupId>
@@ -55,6 +55,12 @@
             <groupId>org.mapdb</groupId>
             <artifactId>mapdb</artifactId>
             <version>3.0.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.biezhi</groupId>
+            <artifactId>oh-my-email</artifactId>
+            <version>0.0.1</version>
         </dependency>
 
         <!--静态资源-->

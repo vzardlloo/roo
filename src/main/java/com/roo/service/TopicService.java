@@ -48,7 +48,7 @@ public class TopicService {
                 "a.comments, a.created, a.replyed, a.reply_id as replyId, a.reply_user as replyUser" +
                 " from roo_topic a" +
                 " left join roo_user b on a.username = b.username" + where +
-                " order by a.weight desc, a.created desc";
+                " order by " + searchParam.getOrderBy();
 
         Page<TopicDto> topics = new TopicDto().page(searchParam.getPageRow(), sql, args.toArray());
         return topics;

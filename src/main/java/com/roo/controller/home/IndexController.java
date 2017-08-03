@@ -31,6 +31,21 @@ public class IndexController {
         return "index";
     }
 
+    @GetRoute("topics")
+    public String topics(SearchParam searchParam, Request request) {
+        return this.topicsPage(1, searchParam, request);
+    }
+
+    @GetRoute("topics/:page")
+    public String topicsPage(@PathParam Integer page, SearchParam searchParam, Request request) {
+        searchParam = null == searchParam ? new SearchParam() : searchParam;
+        searchParam.setPage(page);
+        searchParam.setOrderBy("a.created desc");
+        Page<TopicDto> topicDtoPage = topicService.getTopics(searchParam);
+        request.attribute("topicPage", topicDtoPage);
+        return "topics";
+    }
+
     @GetRoute("go/:slug")
     public String goNode(@PathParam String slug, SearchParam searchParam, Request request) {
         searchParam = null == searchParam ? new SearchParam() : searchParam;

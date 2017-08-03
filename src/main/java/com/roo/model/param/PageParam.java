@@ -14,7 +14,7 @@ public class PageParam {
     @Builder.Default
     private int page  = 1;
     @Builder.Default
-    private int limit = 20;
+    private int limit = 10;
 
     public PageRow getPageRow() {
         return new PageRow(page, limit);
