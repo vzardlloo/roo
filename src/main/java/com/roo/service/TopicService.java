@@ -7,11 +7,14 @@ import com.blade.kit.StringKit;
 import com.roo.model.dto.CommentDto;
 import com.roo.model.dto.TopicDetailDto;
 import com.roo.model.dto.TopicDto;
+import com.roo.model.entity.Topic;
 import com.roo.model.param.SearchParam;
 import com.roo.utils.RooUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author biezhi
@@ -45,7 +48,7 @@ public class TopicService {
                 "a.comments, a.created, a.replyed, a.reply_id as replyId, a.reply_user as replyUser" +
                 " from roo_topic a" +
                 " left join roo_user b on a.username = b.username" + where +
-                " order by a.created desc";
+                " order by a.weight desc, a.created desc";
 
         Page<TopicDto> topics = new TopicDto().page(searchParam.getPageRow(), sql, args.toArray());
         return topics;
@@ -72,6 +75,95 @@ public class TopicService {
         topicDetail.setFavorites(relationService.getTopicFavorites(tid));
 
         return topicDetail;
+    }
+
+    /**
+     * 发布帖子
+     *
+     * @param topic
+     */
+    public void createTopic(Topic topic) {
+        Date date = new Date();
+        topic.setCreated(date);
+        topic.setUpdated(date);
+        long   created = date.getTime() / 1000;
+        double weight  = RooUtils.calcWeight(0, 0, 0, 0, created);
+        topic.setWeight(weight);
+
+        topic.save();
+    }
+
+    /**
+     * 点赞、取消点赞
+     *
+     * @param uid
+     * @param tid
+     * @param isLike
+     */
+    public void likeTopic(Long uid, String tid, boolean isLike) {
+        Topic topic = new Topic().find(tid);
+        if (isLike) {
+            relationService.likeTopic(uid, tid);
+        } else {
+            relationService.unlikeTopic(uid, tid);
+        }
+        this.updateWeight(tid, topic.getComments(), topic.getGains(), topic.getCreated().getTime() / 1000);
+    }
+
+    /**
+     * 收藏、取消收藏
+     *
+     * @param uid
+     * @param tid
+     * @param isFavorite
+     */
+    public void favoriteTopic(Long uid, String tid, boolean isFavorite) {
+        Topic topic = new Topic().find(tid);
+        if (isFavorite) {
+            relationService.favoriteTopic(uid, tid);
+        } else {
+            relationService.unfavoriteTopic(uid, tid);
+        }
+        this.updateWeight(tid, topic.getComments(), topic.getGains(), topic.getCreated().getTime() / 1000);
+    }
+
+    /**
+     * 增益
+     *
+     * @param tid
+     * @param isIncrement
+     */
+    public void gain(Long uid, String tid, boolean isIncrement) {
+
+        relationService.gainTopic(uid, tid);
+
+        Topic topic = new Topic().find(tid);
+        Topic temp  = new Topic();
+        if (isIncrement) {
+            temp.setGains(topic.getGains() + 1);
+        } else {
+            temp.setGains(topic.getGains() - 1);
+        }
+        temp.update(tid);
+        this.updateWeight(tid, topic.getComments(), temp.getGains(), topic.getCreated().getTime() / 1000);
+    }
+
+    private void updateWeight(String tid, int comments, int gains, long created) {
+        int    likes     = relationService.getTopicLikes(tid);
+        int    favorites = relationService.getTopicFavorites(tid);
+        double weight    = RooUtils.calcWeight(likes, favorites, comments, gains, created);
+        Topic  temp      = new Topic();
+        temp.setWeight(weight);
+        temp.update(tid);
+    }
+
+    public void updateTopic(Topic topic) {
+        Topic  temp    = topic.find(topic.getTid());
+        long   created = temp.getCreated().getTime() / 1000;
+        double weight  = RooUtils.calcWeight(0, 0, 0, 0, created);
+        topic.setWeight(weight);
+
+        topic.update();
     }
 
 }

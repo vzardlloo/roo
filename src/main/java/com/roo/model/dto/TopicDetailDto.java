@@ -21,6 +21,7 @@ public class TopicDetailDto extends TopicDto {
     private Integer likes;
     private Integer views;
     private Integer favorites;
+    private Boolean gained;
 
     @Transient
     private List<CommentDto> commentList;

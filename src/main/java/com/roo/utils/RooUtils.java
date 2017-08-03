@@ -2,6 +2,7 @@ package com.roo.utils;
 
 import com.blade.kit.Hashids;
 import com.blade.kit.StringKit;
+import com.roo.model.entity.Topic;
 import com.vdurmont.emoji.EmojiParser;
 import org.commonmark.Extension;
 import org.commonmark.ext.gfm.tables.TablesExtension;
@@ -63,6 +64,29 @@ public class RooUtils {
             return html.replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", " ");
         }
         return "";
+    }
+
+    /**
+     * 计算帖子权重
+     * <p>
+     * 根据点赞数、收藏数、评论数、下沉数、创建时间计算
+     *
+     * @param likes     点赞数：权重占比1
+     * @param favorites 收藏数：权重占比2
+     * @param comments  评论数：权重占比2
+     * @param gains     增益数：权重占比-1
+     * @param created   创建时间，越早权重越低
+     * @return
+     */
+    public static double calcWeight(int likes, int favorites, int comments, int gains, long created) {
+        long score = Math.max(likes - 1, 1) + favorites * 2 + comments * 2 - gains;
+        // 投票方向
+        int sign = (score == 0) ? 0 : (score > 0 ? 1 : -1);
+        // 帖子争议度
+        double order = Math.log10(Math.max(Math.abs(score), 1));
+        // 1501748867是项目创建时间
+        double seconds = created - 1501748867;
+        return Double.parseDouble(String.format("%.2f", order + sign * seconds / 45000));
     }
 
 }

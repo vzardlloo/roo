@@ -33,5 +33,6 @@ public class RooConst {
     public static final String DBKEY_TOPIC_LIKES     = "topic:likes";
     public static final String DBKEY_TOPIC_VIEWS     = "topic:views";
     public static final String DBKEY_TOPIC_FAVORITES = "topic:favorites";
+    public static final String DBKEY_TOPIC_GAINS     = "topic:gains";
 
 }

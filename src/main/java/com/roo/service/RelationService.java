@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 关系服务
@@ -274,7 +275,7 @@ public class RelationService {
      * @param uid
      * @param tid
      */
-    public void likeTopic(Long uid, String tid) {
+    public int likeTopic(Long uid, String tid) {
         Map<String, long[]> map = db.treeMap(RooConst.DBKEY_TOPIC_LIKES)
                 .keySerializer(Serializer.STRING)
                 .valueSerializer(Serializer.LONG_ARRAY)
@@ -285,6 +286,7 @@ public class RelationService {
         } else {
             map.put(tid, new long[]{uid});
         }
+        return map.get(tid).length;
     }
 
     /**
@@ -300,6 +302,44 @@ public class RelationService {
                 .counterEnable()
                 .createOrOpen();
         map.put(tid, ArrayUtils.remove(map.get(tid), uid));
+    }
+
+    /**
+     * 对帖子进行增益
+     *
+     * @param uid
+     * @param tid
+     */
+    public void gainTopic(Long uid, String tid) {
+        Map<String, long[]> map = db.treeMap(RooConst.DBKEY_TOPIC_GAINS)
+                .keySerializer(Serializer.STRING)
+                .valueSerializer(Serializer.LONG_ARRAY)
+                .counterEnable()
+                .createOrOpen();
+        if (map.containsKey(tid)) {
+            map.put(tid, ArrayUtils.append(map.get(tid), uid));
+        } else {
+            map.put(tid, new long[]{uid});
+        }
+    }
+
+    /**
+     * 是否进行过增益
+     *
+     * @param uid
+     * @param tid
+     * @return
+     */
+    public boolean isGain(Long uid, String tid) {
+        Map<String, long[]> map = db.treeMap(RooConst.DBKEY_TOPIC_GAINS)
+                .keySerializer(Serializer.STRING)
+                .valueSerializer(Serializer.LONG_ARRAY)
+                .counterEnable()
+                .createOrOpen();
+        if (!map.containsKey(tid)) {
+            return false;
+        }
+        return Stream.of(map.get(tid)).filter(o -> uid.equals(o)).count() > 0;
     }
 
     private List<Long> getIds(long[] follwers) {

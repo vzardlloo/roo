@@ -1,5 +1,7 @@
 package com.roo.model.dto;
 
+import com.roo.model.entity.User;
+
 /**
  * @author biezhi
  * @date 2017/7/31
@@ -14,4 +16,7 @@ public class Auth {
         return true;
     }
 
+    public static User loginUser(){
+        return null;
+    }
 }
