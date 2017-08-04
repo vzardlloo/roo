@@ -17,7 +17,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Roo!</title>
+    #if(null == title)
+    <title>${settings.site_title}</title>
+    #else
+    <title>${title} - ${settings.site_title}</title>
+    #end
     <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="/webjars/bulma/0.5.0/css/bulma.css" rel="stylesheet"/>
     <link rel="stylesheet" href="/static/css/roo.css?v=${version}"/>
@@ -28,7 +32,15 @@
     ${bodyContent}
     #include('../partials/footer.html')
 </div>
+<div id="roo-modal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        内容
+    </div>
+    <button class="modal-close is-large"></button>
+</div>
 <script type="text/javascript" src="/webjars/jquery/2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/roo.js?v=${version}"></script>
 <script src="/static/js/instantclick.min.js"></script>
 <script data-no-instant>
     InstantClick.on('change', function (isInitialLoad) {

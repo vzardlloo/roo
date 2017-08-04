@@ -17,7 +17,7 @@ public class BaseWebHook implements WebHook {
     @Override
     public boolean before(Signature signature) {
         Request  request  = signature.request();
-        log.info("Request url: {}", request.uri());
+        log.info("{}\t{}", request.method(), request.uri());
         return true;
     }
 

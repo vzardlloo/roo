@@ -82,15 +82,15 @@ a {
     font-size: inherit;
 }
 
-.clearfix:after {
-    content: " ";
-    display: block;
-    clear: both;
-    height: 0;
+input.error {
+    border: 1px solid #ff3860;
 }
 
-.clearfix {
-    zoom: 1;
+label.error {
+    color: #ff3860;
+    display: block;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
 }
 
 .shadow-1 {
@@ -171,7 +171,7 @@ abbr[title] {
     cursor: pointer;
 }
 
-.topic-head-meta, .topic-head-meta a{
+.topic-head-meta, .topic-head-meta a {
     color: #9CA4A9;
     font-size: 12px;
 }

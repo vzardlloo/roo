@@ -2,7 +2,7 @@ package com.roo.utils;
 
 import com.roo.config.RooConst;
 import com.roo.model.param.ForgetParam;
-import com.roo.model.param.RegisterParam;
+import com.roo.model.param.SignupParam;
 import io.github.biezhi.ome.OhMyEmail;
 import jetbrick.template.JetEngine;
 import jetbrick.template.JetTemplate;
@@ -48,15 +48,15 @@ public class EmailUtils {
     /**
      * 异步发送注册邮件
      *
-     * @param registerParam
+     * @param signupParam
      */
-    public static void sendRegister(RegisterParam registerParam) {
+    public static void sendRegister(SignupParam signupParam) {
         executor.submit(() -> {
             JetTemplate         template = engine.getTemplate("/templates/emails/register.html");
             Map<String, Object> context  = new HashMap<>();
-            context.put("username", registerParam.getUsername());
+            context.put("username", signupParam.getUsername());
             context.put("appname", RooConst.settings.getOrDefault("mail.form", "Roo 社区"));
-            context.put("link", registerParam.getLink());
+            context.put("link", signupParam.getLink());
             context.put("copyright", "Roo 社区 © 2017");
 
             StringWriter writer = new StringWriter();
@@ -67,7 +67,7 @@ public class EmailUtils {
                 String subject = "欢迎您加入" + RooConst.settings.getOrDefault("mail.form", "Roo 社区");
                 OhMyEmail.subject(subject)
                         .from(RooConst.settings.getOrDefault("mail.form", "Roo社区"))
-                        .to(registerParam.getEmail())
+                        .to(signupParam.getEmail())
                         .html(output)
                         .send();
             } catch (Exception e) {
