@@ -7,9 +7,11 @@ import com.blade.event.BeanProcessor;
 import com.blade.ioc.annotation.Bean;
 import com.blade.ioc.annotation.Order;
 import com.blade.jdbc.Base;
+import com.blade.kit.StringKit;
 import com.roo.exception.RooException;
 import com.roo.model.dto.JdbcConfig;
 import com.roo.model.entity.Setting;
+import com.roo.utils.EmailUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -52,6 +54,10 @@ public class DbConfig implements BeanProcessor {
 
             List<Setting> settings = new Setting().findAll();
             RooConst.refreshSysInfo(settings);
+
+            if (StringKit.isNotBlank(RooConst.settings.get("mail.smtp.host"))) {
+                EmailUtils.init();
+            }
 
         }
     }

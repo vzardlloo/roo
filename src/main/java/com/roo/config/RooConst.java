@@ -3,6 +3,7 @@ package com.roo.config;
 import com.roo.model.entity.Setting;
 import jetbrick.template.JetGlobalContext;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -17,7 +18,7 @@ public class RooConst {
 
     public static JetGlobalContext context;
 
-    public static Map<String, String> settings;
+    public static Map<String, String> settings = new HashMap<>();
 
     public static void refreshSysInfo(List<Setting> settings) {
         Map<String, String> map = settings.stream()
