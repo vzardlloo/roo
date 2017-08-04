@@ -130,7 +130,7 @@
         });
 
         $('#signup-btn').click(function () {
-            if (signupValidator.valid()) {
+            if (signupValidator.form()) {
                 var param = $('#signupForm').serializeArray();
                 $.post('/signup', param, function (data) {
                     if (data && data.success) {

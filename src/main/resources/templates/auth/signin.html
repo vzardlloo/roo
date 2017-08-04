@@ -95,7 +95,7 @@
         });
 
         $('#signin-btn').click(function () {
-            if (signinValidator.valid()) {
+            if (signinValidator.form()) {
                 var param = $('#signinForm').serializeArray();
                 $.post('/signin', param, function (data) {
                     if (data && data.success) {
