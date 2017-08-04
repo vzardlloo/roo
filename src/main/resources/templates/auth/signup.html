@@ -35,7 +35,7 @@
 
                     <div class="field">
                         <p class="control has-icons-left">
-                            <input id="password" name="password" class="input" type="password" placeholder="请输入密码" />
+                            <input id="password" name="password" class="input" type="password" placeholder="请输入密码"/>
                             <span class="icon is-small is-left">
                           <i class="fa fa-lock"></i>
                         </span>
@@ -44,7 +44,7 @@
 
                     <div class="field">
                         <p class="control has-icons-left">
-                            <input id="repassword" name="repassword" class="input" type="password" placeholder="确认密码" />
+                            <input id="repassword" name="repassword" class="input" type="password" placeholder="确认密码"/>
                             <span class="icon is-small is-left">
                           <i class="fa fa-lock"></i>
                         </span>
@@ -59,7 +59,7 @@
 
                     <div class="field">
                         <p class="control">
-                            <button class="button is-success" type="submit">注册</button>
+                            <button id="signup-btn" class="button is-success" type="button">注册</button>
                             <a class="button" href="${siteUrl('signin')}">登录</a>
                         </p>
                     </div>
@@ -81,7 +81,7 @@
             return this.optional(element) || (checkName.test(value));
         }, "只允许4-20位英文字母、数字或者下画线！");
 
-        $("#signupForm").validate({
+        var signupValidator = $("#signupForm").validate({
             rules: {
                 username: {
                     required: true,
@@ -126,9 +126,12 @@
                     required: "请输入邮箱",
                     email: "请输入一个正确的邮箱"
                 }
-            },
-            submitHandler: function (form) {
-                var param = form.serializeArray();
+            }
+        });
+
+        $('#signup-btn').click(function () {
+            if (signupValidator.valid()) {
+                var param = $('#signupForm').serializeArray();
                 $.post('/signup', param, function (data) {
                     if (data && data.success) {
                     } else {

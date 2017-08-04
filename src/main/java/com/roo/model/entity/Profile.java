@@ -15,7 +15,6 @@ import lombok.Data;
 public class Profile extends ActiveRecord {
 
     private Long   uid;
-    private String username;
     private String location;
     private String website;
     private String github;

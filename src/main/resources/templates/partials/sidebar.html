@@ -5,13 +5,15 @@
             <h6 class="subtitle is-6">世界上一成不变的东西，只有“任何事物都是在不断变化的”这条真理。—— 斯里兰卡</h6>
         </div>
     </div>
+    #if(null == login_user)
     <div class="message is-light">
         <div class="message-header">Roo - 小而美的极客社区</div>
         <div class="message-body has-text-centered">
-            <a class="button is-danger is-outlined">马上注册</a>
-            <a class="button is-info is-outlined">登录Roo</a>
+            <a class="button is-danger is-outlined" href="${siteUrl('signup')}">马上注册</a>
+            <a class="button is-info is-outlined" href="${siteUrl('signin')}">登录Roo</a>
         </div>
     </div>
+    #end
     <div class="message is-light">
         <div class="message-header">捐赠 Roo</div>
         <div class="message-body has-text-centered">

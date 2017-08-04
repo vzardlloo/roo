@@ -1,6 +1,7 @@
 package com.roo.service;
 
 import com.blade.ioc.annotation.Bean;
+import com.blade.jdbc.Base;
 import com.blade.kit.EncrypKit;
 import com.blade.kit.UUID;
 import com.blade.mvc.WebContext;
@@ -9,6 +10,7 @@ import com.roo.config.RooConst;
 import com.roo.model.entity.Actived;
 import com.roo.model.entity.Profile;
 import com.roo.model.entity.User;
+import com.roo.model.param.SigninParam;
 import com.roo.model.param.SignupParam;
 import com.roo.utils.EmailUtils;
 
@@ -81,12 +83,44 @@ public class AccountService {
         return RestResponse.ok();
     }
 
-    public RestResponse<Boolean> login(String username, String password) {
-        return RestResponse.ok();
+    public RestResponse<User> login(SigninParam signinParam) {
+        User user   = new User();
+        User u1 = user.where("username", signinParam.getUsername()).find();
+        User u2 = user.where("email", signinParam.getUsername()).find();
+        if (null == u1 && null == u2) {
+            return RestResponse.fail("不存在该用户");
+        }
+        if(null != u1){
+            if(!u1.getPassword().equals(EncrypKit.md5(u1.getUsername() + signinParam.getPassword()))){
+                return RestResponse.fail("用户名或密码错误");
+            }
+            return RestResponse.ok(u1);
+        }
+        if(null != u2){
+            if(!u2.getPassword().equals(EncrypKit.md5(u2.getUsername() + signinParam.getPassword()))){
+                return RestResponse.fail("用户名或密码错误");
+            }
+            return RestResponse.ok(u2);
+        }
+        return null;
     }
 
-    public void active() {
+    public void active(Actived actived) {
+        Base.atomic(() -> {
+            Actived temp = new Actived();
+            temp.setState(1);
+            temp.update(actived.getId());
 
+            Profile profile = new Profile();
+            profile.setUid(actived.getUid());
+            profile.save();
+
+            User user = new User();
+            user.setState(1);
+            user.setUpdated(new Date());
+            user.update(actived.getUid());
+            return true;
+        });
     }
 
 }

@@ -1,71 +1,47 @@
 #set(String title = "账户激活")
 #tag layout_block("bodyContent")
 <div class="columns">
-    <div class="column is-2"></div>
-    <div class="column is-5">
-        <div class="message is-light">
-            <div class="message-header">登录</div>
+    <div class="column is-3"></div>
+    <div class="column is-6">
+        #if(type == 'success')
+        <article class="message is-success">
+            <div class="message-header">
+                <p>激活成功</p>
+            </div>
             <div class="message-body">
-                <div class="field">
-                    <div class="control has-icons-left has-icons-right">
-                        <input class="input" type="text" placeholder="用户名/邮箱"/>
-                        <span class="icon is-small is-left">
-                          <i class="fa fa-user"></i>
-                        </span>
-                        <!--<span class="icon is-small is-right">-->
-                        <!--<i class="fa fa-check"></i>-->
-                        <!--</span>-->
-                    </div>
-                    <!--<p class="help is-success">This username is available</p>-->
-                </div>
-
-                <div class="field">
-                    <p class="control has-icons-left">
-                        <input class="input" type="password" placeholder="密码">
-                        <span class="icon is-small is-left">
-                          <i class="fa fa-lock"></i>
-                        </span>
-                    </p>
-                </div>
-
-                <div class="field">
-                    <p class="control">
-                        <div class="field">
-                            <div class="control">
-                                <div class="is-pulled-left">
-                                    <label class="checkbox">
-                                        <input type="checkbox"> 记住我
-                                    </label>
-                                </div>
-                                <div class="is-pulled-right">
-                                    <a href="">忘记密码</a>
-                                </div>
-                                <div class="is-clearfix"></div>
-                            </div>
-                        </div>
-                        <div class="has-text-centered">
-                            <button class="button is-success">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;登&nbsp;录&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
-                        </div>
-                    </p>
-                </div>
-
+                恭喜您，账户激活成功，点击 <a class="button" href="${siteUrl('signin')}">登录</a>
             </div>
-        </div>
-    </div>
-    <div class="column is-3">
-        <div class="message is-light">
-            <div class="message-header">其他平台登录</div>
-            <div class="message-body has-text-centered">
-                <a class="button is-black" href="#">
-                    <span class="icon">
-                      <i class="fa fa-github"></i>
-                    </span>
-                    <span>Github登录</span>
-                </a>
+        </article>
+        #elseif(type == 'invalid')
+        <article class="message is-warning">
+            <div class="message-header">
+                <p>无效的激活码</p>
             </div>
-        </div>
+            <div class="message-body">
+                这是一个无效的激活码。
+            </div>
+        </article>
+        #elseif(type == 'expires')
+        <article class="message is-warning">
+            <div class="message-header">
+                <p>激活码过期</p>
+            </div>
+            <div class="message-body">
+                该激活码已过期，请重新获取然后进行操作。
+            </div>
+        </article>
+        #elseif(type == 'used')
+        <article class="message is-warning">
+            <div class="message-header">
+                <p>激活码已使用</p>
+            </div>
+            <div class="message-body">
+                该激活码已经使用，请勿重复使用。
+            </div>
+        </article>
+        #end
     </div>
-    <div class="column is-2"></div>
+    <div class="column is-3"></div>
 </div>
 #end
 #include('../layouts/default.html')

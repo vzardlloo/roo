@@ -6,45 +6,46 @@
         <div class="message is-light">
             <div class="message-header">登录</div>
             <div class="message-body">
-                <div class="field">
-                    <div class="control has-icons-left has-icons-right">
-                        <input class="input" type="text" placeholder="用户名/邮箱"/>
-                        <span class="icon is-small is-left">
+                <form id="signinForm">
+                    <div class="field">
+                        <div class="control has-icons-left has-icons-right">
+                            <input id="username" name="username" class="input" type="text" placeholder="用户名/邮箱"/>
+                            <span class="icon is-small is-left">
                           <i class="fa fa-user"></i>
                         </span>
+                        </div>
                     </div>
-                </div>
 
-                <div class="field">
-                    <p class="control has-icons-left">
-                        <input class="input" type="password" placeholder="密码">
-                        <span class="icon is-small is-left">
+                    <div class="field">
+                        <p class="control has-icons-left">
+                            <input id="password" name="password" class="input" type="password" placeholder="密码">
+                            <span class="icon is-small is-left">
                           <i class="fa fa-lock"></i>
                         </span>
-                    </p>
-                </div>
+                        </p>
+                    </div>
 
-                <div class="field">
-                    <p class="control">
+                    <div class="field">
+                        <p class="control">
                         <div class="field">
                             <div class="control">
                                 <div class="is-pulled-left">
                                     <label class="checkbox">
-                                        <input type="checkbox"> 记住我
+                                        <input name="remeberMe" type="checkbox"/> 记住我
                                     </label>
                                 </div>
                                 <div class="is-pulled-right">
-                                    <a href="">忘记密码</a>
+                                    <a href="${siteUrl('forget')}">忘记密码</a>
                                 </div>
                                 <div class="is-clearfix"></div>
                             </div>
                         </div>
                         <div class="has-text-centered">
-                            <button class="button is-success">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;登&nbsp;录&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                            <button id="signin-btn" type="button" class="button is-success">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;登&nbsp;录&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
                         </div>
-                    </p>
-                </div>
-
+                        </p>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -63,5 +64,51 @@
     </div>
     <div class="column is-2"></div>
 </div>
+#end
+#tag layout_block("footScript")
+<script src="//cdn.bootcss.com/jquery-validate/1.15.1/jquery.validate.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-validate/1.15.1/localization/messages_zh.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var signinValidator = $("#signinForm").validate({
+            rules: {
+                username: {
+                    required: true,
+                    minlength: 4
+                },
+                password: {
+                    required: true,
+                    minlength: 6
+                }
+            },
+            messages: {
+                username: {
+                    required: "请输入用户名",
+                    minlength: "请输入4位以上用户名"
+                },
+                password: {
+                    required: "请输入密码",
+                    minlength: "密码长度不能小于6位"
+                }
+            }
+        });
+
+        $('#signin-btn').click(function () {
+            if (signinValidator.valid()) {
+                var param = $('#signinForm').serializeArray();
+                $.post('/signin', param, function (data) {
+                    if (data && data.success) {
+                        window.location.href = '/';
+                    } else {
+                        if (data.msg) {
+                            roo.alertBox(data.msg);
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>
 #end
 #include('../layouts/default.html')
