@@ -2,6 +2,7 @@ package social.roo.model.entity;
 
 import com.blade.jdbc.annotation.Table;
 import com.blade.jdbc.core.ActiveRecord;
+import com.blade.validator.annotation.NotEmpty;
 import lombok.Data;
 
 import java.util.Date;
@@ -17,9 +18,12 @@ import java.util.Date;
 public class Topic extends ActiveRecord {
 
     private String  tid;
+    @NotEmpty(message = "请选择节点")
     private String  nodeSlug;
     private String  nodeTitle;
+    @NotEmpty(message = "请请输入标题")
     private String  title;
+    @NotEmpty(message = "请请输入内容")
     private String  content;
     private String  username;
     private Integer comments;

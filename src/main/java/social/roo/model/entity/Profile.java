@@ -14,11 +14,15 @@ import lombok.Data;
 @Table(value = "roo_profile", pk = "uid")
 public class Profile extends ActiveRecord {
 
-    private Long   uid;
-    private String location;
-    private String website;
-    private String github;
-    private String weibo;
-    private String signature;
+    private Long    uid;
+    private Integer topics;
+    private Integer comments;
+    private Integer favorites;
+    private Integer followers;
+    private String  location;
+    private String  website;
+    private String  github;
+    private String  weibo;
+    private String  signature;
 
 }

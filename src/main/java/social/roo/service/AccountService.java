@@ -136,4 +136,8 @@ public class AccountService {
         });
     }
 
+    public Profile getProfile(String username) {
+        return new Profile().where("username", username).find();
+    }
+
 }

@@ -3,6 +3,7 @@ package social.roo;
 import com.blade.Blade;
 import com.blade.security.web.csrf.CsrfMiddleware;
 import com.blade.validator.ValidatorMiddleware;
+import social.roo.auth.AuthMiddleware;
 
 /**
  * Roo启动类
@@ -13,7 +14,10 @@ import com.blade.validator.ValidatorMiddleware;
 public class Application {
 
     public static void main(String[] args) {
-        Blade.me().use(new ValidatorMiddleware(), new CsrfMiddleware()).start(Application.class, args);
+        Blade.me().use(new AuthMiddleware(),
+                new ValidatorMiddleware(),
+                new CsrfMiddleware())
+                .start(Application.class, args);
     }
 
 }

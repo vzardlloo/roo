@@ -1,5 +1,7 @@
 package social.roo.service;
 
+import social.roo.model.entity.Node;
+
 /**
  * 节点
  *
@@ -8,5 +10,7 @@ package social.roo.service;
  */
 public class NodeService {
 
-
+    public Node getNode(String slug){
+        return new Node().where("slug", slug).find();
+    }
 }

@@ -2,18 +2,22 @@ package social.roo.service;
 
 import com.blade.ioc.annotation.Bean;
 import com.blade.ioc.annotation.Inject;
+import com.blade.jdbc.Base;
 import com.blade.jdbc.page.Page;
 import com.blade.kit.StringKit;
+import social.roo.Roo;
+import social.roo.config.RooConst;
 import social.roo.model.dto.CommentDto;
 import social.roo.model.dto.TopicDetailDto;
 import social.roo.model.dto.TopicDto;
-import social.roo.model.entity.Topic;
+import social.roo.model.entity.*;
 import social.roo.model.param.SearchParam;
 import social.roo.utils.RooUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author biezhi
@@ -27,6 +31,12 @@ public class TopicService {
 
     @Inject
     private RelationService relationService;
+
+    @Inject
+    private AccountService accountService;
+
+    @Inject
+    private NodeService nodeService;
 
     public Page<TopicDto> getTopics(SearchParam searchParam) {
 
@@ -165,4 +175,55 @@ public class TopicService {
         topic.update();
     }
 
+    public void publish(Topic topic) {
+        Base.atomic(() -> {
+            Date date = new Date();
+            topic.setCreated(date);
+            topic.setUpdated(date);
+            double weight = RooUtils.calcWeight(0, 0, 0, 0, date.getTime() / 1000);
+            topic.setWeight(weight);
+            topic.save();
+
+            // 帖子数+1
+            // settings user count +1
+            Setting setting = new Setting();
+            setting.setSkey(RooConst.SETTING_KEY_TOPICS);
+            Setting users = setting.find();
+            users.setSvalue(String.valueOf(Integer.parseInt(users.getSvalue()) + 1));
+            users.update();
+
+            // refresh settings
+            Roo.me().refreshSettings();
+
+            // 用户发帖数+1
+            Profile profile = accountService.getProfile(topic.getUsername());
+            int     topics  = profile.getTopics() + 1;
+            Profile temp    = new Profile();
+            temp.setTopics(topics);
+            temp.where("username", topic.getUsername()).update();
+
+            // 节点下帖子数+1
+            Node node       = nodeService.getNode(topic.getNodeSlug());
+            int  nodeTopics = node.getTopics() + 1;
+            Node nodeTemp   = new Node();
+            nodeTemp.setTopics(nodeTopics);
+            nodeTemp.where("slug", topic.getNodeSlug()).update();
+
+            // 通知@的人
+            Set<String> atUsers = RooUtils.getAtUsers(topic.getContent());
+            if (atUsers.size() > 0) {
+                atUsers.forEach(username -> {
+                    Notice notice = new Notice();
+                    notice.setToUser(username);
+                    notice.setFromUser(topic.getUsername());
+                    notice.setTitle(topic.getTitle());
+                    notice.setEvent("topic_at");
+                    notice.setState(0);
+                    notice.setCreated(new Date());
+                    notice.save();
+                });
+            }
+            return true;
+        });
+    }
 }
