@@ -14,10 +14,48 @@
         </div>
     </div>
     #end
+
+    <div class="message is-light">
+        <div class="message-header">推荐编程资源</div>
+        <div class="message-body">
+            <ul>
+                <li>
+                    <a href="">开发者头条</a>
+                </li>
+                <li>
+                    <a href="">并发编程网</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="message is-light">
+        <div class="message-header">友情链接</div>
+        <div class="message-body has-text-centered">
+            <a href="https://github.com/biezhi" title="轻量级JavaWeb框架 - Blade" target="_blank">
+                <img width="180" src="/static/images/icon-blade.png" />
+            </a>
+            <hr/>
+            <a href="https://www.v2ex.com/" title="创意工作者们的社区" target="_blank">
+                <img width="180" src="https://v2ex.assets.uxengine.net/site/logo@2x.png?m=1346064962" />
+            </a>
+        </div>
+    </div>
+
     <div class="message is-light">
         <div class="message-header">捐赠 Roo</div>
         <div class="message-body has-text-centered">
             <img src="/static/images/alipay.jpg" width="320" height="400"/>
         </div>
     </div>
+
+    <div class="message is-light">
+        <div class="message-header">站点统计</div>
+        <div class="message-body">
+            <span>社区会员: ${settings.site_users ?! 0} 人</span><hr/>
+            <span>主题数: ${settings.site_topics ?! 0} 个</span><hr/>
+            <span>回帖数: ${settings.site_comments ?! 0} 条</span>
+        </div>
+    </div>
+
 </div>

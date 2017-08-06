@@ -22,6 +22,8 @@ public class MapDbTest {
                 .counterEnable()
                 .createOrOpen();
 
+        map.keySet();
+
         map.clear();
 
         map.put("biezhi", new long[]{1});

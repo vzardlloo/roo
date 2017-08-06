@@ -28,7 +28,7 @@ public class IndexController {
         searchParam = null == searchParam ? new SearchParam() : searchParam;
         Page<TopicDto> topicDtoPage = topicService.getTopics(searchParam);
         request.attribute("topics", topicDtoPage.getRows());
-        return "index";
+        return "home";
     }
 
     @GetRoute("topics")

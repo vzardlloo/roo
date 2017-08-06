@@ -2,7 +2,6 @@ package social.roo.ext;
 
 import com.blade.kit.StringKit;
 import social.roo.Roo;
-import social.roo.config.RooConst;
 
 /**
  * 模板函数
@@ -21,7 +20,6 @@ public class TplFunctions {
             return Roo.me().getSetting("site_url");
         }
         String url = Roo.me().getSetting("site_url") + "/" + sub;
-        url = url.replace("//", "/");
         return url;
     }
 }

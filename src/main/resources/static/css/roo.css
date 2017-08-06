@@ -93,6 +93,13 @@ label.error {
     margin-top: 0.25rem;
 }
 
+hr{
+    background-color: #dbdbdb;
+    border: medium none;
+    display: block;
+    height: 1px;
+    margin: 0.5rem 0;
+}
 .shadow-1 {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
