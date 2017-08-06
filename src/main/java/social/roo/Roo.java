@@ -1,12 +1,12 @@
 package social.roo;
 
-import social.roo.model.entity.Node;
-import social.roo.model.entity.Setting;
 import jetbrick.template.JetGlobalContext;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import social.roo.model.dto.NodeDto;
+import social.roo.model.entity.Node;
+import social.roo.model.entity.Setting;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +47,17 @@ public class Roo {
     }
 
     public Roo refreshNodes() {
-        List<Node> nodes = new Node().findAll();
+        List<Node> parent = new Node().where("pid", 0).and("state", 1).findAll();
+        List<NodeDto> nodes = parent.stream()
+                .map(p -> {
+                    NodeDto nodeDto = new NodeDto();
+                    nodeDto.setTitle(p.getTitle());
+                    nodeDto.setSlug(p.getSlug());
+                    List<Node> children = new Node().where("pid", p.getId()).and("state", 1).findAll();
+                    nodeDto.setChildren(children);
+                    return nodeDto;
+                })
+                .collect(Collectors.toList());
         context.set(List.class, "nodes", nodes);
         return this;
     }

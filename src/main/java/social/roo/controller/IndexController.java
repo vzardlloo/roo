@@ -1,4 +1,4 @@
-package social.roo.controller.home;
+package social.roo.controller;
 
 import com.blade.ioc.annotation.Inject;
 import com.blade.jdbc.page.Page;
@@ -24,11 +24,46 @@ public class IndexController {
     private TopicService topicService;
 
     @GetRoute
-    public String index(SearchParam searchParam, Request request) {
+    public String home(SearchParam searchParam, Request request) {
         searchParam = null == searchParam ? new SearchParam() : searchParam;
         Page<TopicDto> topicDtoPage = topicService.getTopics(searchParam);
         request.attribute("topics", topicDtoPage.getRows());
         return "home";
+    }
+
+    @GetRoute("news")
+    public String news() {
+        return "news";
+    }
+
+    @GetRoute("wiki")
+    public String wiki() {
+        return "wiki";
+    }
+
+    @GetRoute("about")
+    public String about() {
+        return "about";
+    }
+
+    @GetRoute("popular")
+    public String popular() {
+        return "popular";
+    }
+
+    @GetRoute("faq")
+    public String faq() {
+        return "faq";
+    }
+
+    @GetRoute("sites")
+    public String sites() {
+        return "sites";
+    }
+
+    @GetRoute("contact")
+    public String contact() {
+        return "contact";
     }
 
     @GetRoute("topics")

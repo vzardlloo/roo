@@ -152,11 +152,11 @@
 
     <div class="message-body has-text-centered">
         #for(item : nodes)
-            #if(item.slug == 'cities')
-                #for(node : item.children)
-                <a class="tag" title="${node.title}" href="${siteUrl('go/' + node.slug)}">${node.title}</a>
-                #end
-            #end
+        #if(item.slug == 'cities')
+        #for(node : item.children)
+        <a class="tag" title="${node.title}" href="${siteUrl('go/' + node.slug)}">${node.title}</a>
+        #end
+        #end
         #end
     </div>
 </div>

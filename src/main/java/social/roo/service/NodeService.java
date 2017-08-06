@@ -1,5 +1,6 @@
 package social.roo.service;
 
+import com.blade.ioc.annotation.Bean;
 import social.roo.model.entity.Node;
 
 /**
@@ -8,6 +9,7 @@ import social.roo.model.entity.Node;
  * @author biezhi
  * @date 2017/8/3
  */
+@Bean
 public class NodeService {
 
     public Node getNode(String slug){
