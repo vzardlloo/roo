@@ -1,4 +1,4 @@
-import com.roo.utils.RooUtils;
+import social.roo.utils.RooUtils;
 
 /**
  * @author biezhi

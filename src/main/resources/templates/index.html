@@ -65,7 +65,8 @@
     <div class="column home-topic">
         <div class="message is-light">
             <div class="message-header">
-                <span class="has-text-left"><span class="icon is-small"><i class="fa fa-first-order"></i></span> 首页主题</span>
+                <span class="has-text-left"><span class="icon is-small"><i
+                        class="fa fa-first-order"></i></span> 首页主题</span>
                 <span class="has-text-right">
                         <a href="">最新话题</a>
                         <a href="">精华主题</a>
@@ -132,7 +133,8 @@
             <div class="node media">
                 <label class="media-left">Hifone</label>
                 <span class="nodes media-body">
-                            <span class="name"><a title="站务与公告" href="http://hifone.com/go/announcement">站务与公告</a></span>
+                            <span class="name"><a title="站务与公告"
+                                                  href="http://hifone.com/go/announcement">站务与公告</a></span>
                             <span class="name"><a title="反馈" href="http://hifone.com/go/feedback">反馈</a></span>
                             <span class="name"><a title="使用指南" href="http://hifone.com/go/guide">使用指南</a></span>
                       </span>
@@ -154,7 +156,8 @@
             <div class="node media">
                 <label class="media-left">Technology</label>
                 <span class="nodes media-body">
-                            <span class="name"><a title="Geek Talks" href="http://hifone.com/go/geek">Geek Talks</a></span>
+                            <span class="name"><a title="Geek Talks"
+                                                  href="http://hifone.com/go/geek">Geek Talks</a></span>
                             <span class="name"><a title="程序猿" href="http://hifone.com/go/codefarmer">程序猿</a></span>
                             <span class="name"><a title="分享与创造" href="http://hifone.com/go/share">分享与创造</a></span>
                       </span>
@@ -170,20 +173,9 @@
     </div>
 
     <div class="message-body has-text-centered">
-        <span class="tag">上海</span>
-        <span class="tag">北京</span>
-        <span class="tag">广州</span>
-        <span class="tag">深圳</span>
-        <span class="tag">杭州</span>
-        <span class="tag">重庆</span>
-        <span class="tag">成都</span>
-        <span class="tag">江西</span>
-        <span class="tag">西安</span>
-        <span class="tag">河北</span>
-        <span class="tag">湖南</span>
-        <span class="tag">武汉</span>
-        <span class="tag">南京</span>
-        <span class="tag">大连</span>
+        #for(item : nodes)
+        <a class="tag" href="${siteUrl('go/' + item.slug)}">${item.title}</a>
+        #end
     </div>
 </div>
 #end

@@ -70,45 +70,45 @@
 <script src="//cdn.bootcss.com/jquery-validate/1.15.1/localization/messages_zh.min.js"></script>
 <script type="text/javascript">
 
-    $(document).ready(function () {
-        var signinValidator = $("#signinForm").validate({
-            rules: {
-                username: {
-                    required: true,
-                    minlength: 4
-                },
-                password: {
-                    required: true,
-                    minlength: 6
-                }
+$(document).ready(function () {
+    var signinValidator = $("#signinForm").validate({
+        rules: {
+            username: {
+                required: true,
+                minlength: 4
             },
-            messages: {
-                username: {
-                    required: "请输入用户名",
-                    minlength: "请输入4位以上用户名"
-                },
-                password: {
-                    required: "请输入密码",
-                    minlength: "密码长度不能小于6位"
-                }
+            password: {
+                required: true,
+                minlength: 6
             }
-        });
-
-        $('#signin-btn').click(function () {
-            if (signinValidator.form()) {
-                var param = $('#signinForm').serializeArray();
-                $.post('/signin', param, function (data) {
-                    if (data && data.success) {
-                        window.location.href = '/';
-                    } else {
-                        if (data.msg) {
-                            roo.alertBox(data.msg);
-                        }
-                    }
-                });
+        },
+        messages: {
+            username: {
+                required: "请输入用户名",
+                minlength: "请输入4位以上用户名"
+            },
+            password: {
+                required: "请输入密码",
+                minlength: "密码长度不能小于6位"
             }
-        });
+        }
     });
+
+    $('#signin-btn').click(function () {
+        if (signinValidator.form()) {
+            var param = $('#signinForm').serializeArray();
+            $.post('/signin', param, function (data) {
+                if (data && data.success) {
+                    window.location.href = '/';
+                } else {
+                    if (data.msg) {
+                        roo.alertBox(data.msg);
+                    }
+                }
+            });
+        }
+    });
+});
 </script>
 #end
 #include('../layouts/default.html')
