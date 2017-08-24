@@ -28,6 +28,14 @@ public class Roo {
         return settings.containsKey(key);
     }
 
+    /**
+     * 设置模板引擎上下文
+     *
+     * @param type
+     * @param key
+     * @param value
+     * @return
+     */
     public Roo context(Class<?> type, String key, Object value) {
         context.set(type, key, value);
         return this;
@@ -46,6 +54,11 @@ public class Roo {
         return settings.getOrDefault(key, defaultValue);
     }
 
+    /**
+     * 刷新节点
+     *
+     * @return
+     */
     public Roo refreshNodes() {
         List<Node> parent = new Node().where("pid", 0).and("state", 1).findAll();
         List<NodeDto> nodes = parent.stream()
@@ -62,6 +75,11 @@ public class Roo {
         return this;
     }
 
+    /**
+     * 刷新配置
+     *
+     * @return
+     */
     public Roo refreshSettings() {
         List<Setting> settings = new Setting().findAll();
         Map<String, String> map = settings.stream()
